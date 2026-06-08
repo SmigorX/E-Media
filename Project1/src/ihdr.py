@@ -39,7 +39,16 @@ def read_IHDR_chunk(image_bytes: bytes) -> dict[str, bytes]:
     return ihdr_info
 
 
+COLOR_TYPES = {0: "grayscale", 2: "RGB", 3: "palette",
+               4: "grayscale+alpha", 6: "RGBA"}
+INTERLACE = {0: "none", 1: "Adam7"}
+
 def print_IHDR_info(ihdr_info: dict[str, bytes]) -> None:
+    values = {k: int.from_bytes(v, "big") for k, v in ihdr_info.items()}
     print("IHDR Chunk Information:")
-    for key, value in ihdr_info.items():
-        print(f"{key}: {int.from_bytes(value, 'big')}")
+    print(f"  Dimensions:    {values['Width']} x {values['Height']} px")
+    print(f"  Bit depth:     {values['Bit_Depth']}")
+    print(f"  Color type:    {values['Color_Type']} ({COLOR_TYPES.get(values['Color_Type'], 'unknown')})")
+    print(f"  Compression:   {values['Compression_Method']}")
+    print(f"  Filter:        {values['Filter_Method']}")
+    print(f"  Interlace:     {values['Interlace_Method']} ({INTERLACE.get(values['Interlace_Method'], 'unknown')})")
