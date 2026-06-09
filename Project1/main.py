@@ -1,7 +1,7 @@
 from src.loader import load_png_image
 from src.ihdr import read_IHDR_chunk, print_IHDR_info
-from src.chunks import read_all_chunks
-from src.chunks import print_all_chunks
+from src.chunks import read_all_chunks, print_all_chunks
+from src.fourier import plot_fourier_transform
 
 def main():
     image_path = './test.png'  
@@ -12,6 +12,8 @@ def main():
 
     chunks = read_all_chunks(image_bytes)
     print_all_chunks(chunks)
+
+    plot_fourier_transform(image_path)
 
 if __name__ == "__main__":
     main()
