@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-def plot_fourier_transform(image_path: str) -> None:
+def plot_fourier_transform(image_path: str, save_path: str | None = None) -> None:
     # 1. Load the image and convert to grayscale ('L')
     try:
         image = Image.open(image_path).convert('L') # L = R * 0.299 + G * 0.587 + B * 0.114
@@ -36,4 +36,9 @@ def plot_fourier_transform(image_path: str) -> None:
     plt.axis('off')
 
     plt.tight_layout()
-    plt.show()
+    if save_path:
+        plt.savefig(save_path)
+        print(f"  Fourier transform saved to: {save_path}")
+        plt.close()
+    else:
+        plt.show()
