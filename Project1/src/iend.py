@@ -14,8 +14,7 @@ def read_IEND_chunk(image_bytes: bytes, start_index: int) -> bool:
     return True
 
 def print_IEND_info(is_valid: bool) -> None:
-    print("\nIEND Chunk Information:")
-    if is_valid:
-        print("  IEND chunk is valid and correctly formatted.")
-    else:
-        print("  IEND chunk is invalid or incorrectly formatted.")
+    print("IEND Chunk Information:")
+    print("-" * 44)
+    print(f"  {'Status':<22} {'valid' if is_valid else 'INVALID'}")
+    print("-" * 44)

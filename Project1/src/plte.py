@@ -20,12 +20,18 @@ def read_PLTE_chunks(image_bytes: bytes, start_index: int, length: int) -> list[
     return palette
 
 def print_PLTE_info(palette: list[tuple[int, int, int]]) -> None:
-    print("\nPLTE Chunk Information:")
-    print(f"  Number of palette entries: {len(palette)}")
-    
+    print("PLTE Chunk Information:")
+    print("-" * 44)
+    print(f"  {'Field':<22} {'Value'}")
+    print("-" * 44)
+    print(f"  {'Number of entries':<22} {len(palette)}")
+    print("-" * 44)
+    print(f"  {'No.':<6} {'R':<8} {'G':<8} {'B'}")
+    print("-" * 44)
     limit = min(5, len(palette))
     for i in range(limit):
-        print(f"  Entry {i+1}: R={palette[i][0]}, G={palette[i][1]}, B={palette[i][2]}")
-
+        r, g, b = palette[i]
+        print(f"  {i+1:<6} {r:<8} {g:<8} {b}")
     if len(palette) > limit:
         print(f"  ... and {len(palette) - limit} more entries.")
+    print("-" * 44)

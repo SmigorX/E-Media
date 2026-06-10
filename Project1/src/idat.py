@@ -8,6 +8,10 @@ def read_IDAT_chunks(idat_chunks_list: list[dict]) -> dict[str, int]:
     return idat_info
 
 def print_IDAT_info(idat_info: dict[str, int]) -> None:
-    print("\nIDAT Chunk Information:")
-    print(f"  Number of IDAT chunks: {idat_info['Count']}")
-    print(f"  Total size of IDAT data: {idat_info['Total_Size']} bytes")
+    print("IDAT Chunk Information:")
+    print("-" * 44)
+    print(f"  {'Field':<22} {'Value'}")
+    print("-" * 44)
+    print(f"  {'Number of chunks':<22} {idat_info['Count']}")
+    print(f"  {'Total size':<22} {idat_info['Total_Size']} bytes")
+    print("-" * 44)
