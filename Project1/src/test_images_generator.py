@@ -5,14 +5,12 @@ def generate_stripes():
     size = 256
     stripe_size = 16
 
-    # Vertical
     image_vertical = np.zeros((size, size), dtype=np.uint8)
     for i in range(0, size, stripe_size * 2):
         image_vertical[i:i+stripe_size, :] = 255
 
     Image.fromarray(image_vertical).save('stripes_vertical.png')
 
-    # Horizontal
     image_horizontal = np.zeros((size, size), dtype=np.uint8)
     for i in range(0, size, stripe_size * 2):
         image_horizontal[:, i:i+stripe_size] = 255

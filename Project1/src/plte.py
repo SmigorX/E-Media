@@ -4,12 +4,12 @@ def read_PLTE_chunks(image_bytes: bytes, start_index: int, length: int) -> list[
     chunk_name = image_bytes[start_index+4:start_index+8]
     if chunk_name != PLTE_NAME:
         raise ValueError("The chunk is not PLTE.")
-    
+
     plte_data = image_bytes[start_index+8:start_index+8+length]
 
     if len(plte_data) % 3 != 0:
         raise ValueError("PLTE chunk data length is not a multiple of 3.")
-    
+
     palette: list[tuple[int, int, int]] = []
     for i in range(0, len(plte_data), 3):
         r = plte_data[i]

@@ -15,7 +15,7 @@ def check_chunk_crc(image_bytes: bytes, chunk: ChunkInfo) -> bool:
     return computed == stored
 
 def read_all_chunks(image_bytes: bytes) -> list[ChunkInfo]:
-    cursor = 8  # Skip the PNG signature
+    cursor = 8
     chunks = []
 
     while cursor < len(image_bytes):
@@ -28,7 +28,6 @@ def read_all_chunks(image_bytes: bytes) -> list[ChunkInfo]:
             "length": chunk_length,
             "start_index": cursor,
         })
-        # 4 bytes - length, 4 bytes - type, chunk_length bytes - data, 4 bytes - CRC
         cursor += 12 + chunk_length
 
         if chunk_type == "IEND":

@@ -10,12 +10,17 @@ from src.anonymizer import anonymize_png, print_anonymization_report, save_anony
 
 def main():
 
-    image_path = './test.png'  
+    image_path = './test.png'
     image_bytes = load_png_image(image_path)
 
     print("\n--- 1. Scanning file structure ---")
     chunks = read_all_chunks(image_bytes)
     print_all_chunks(chunks, image_bytes)
+
+    # Test for the successful Fourier Transform
+    #generate_stripes()
+    #plot_fourier_transform('./stripes_vertical.png')
+    #plot_fourier_transform('./stripes_horizontal.png')
 
     print("\n--- 2. Validating IHDR chunk ---")
     ihdr_info = read_IHDR_chunk(image_bytes)
@@ -40,21 +45,15 @@ def main():
     print("\n--- 5. Validating IEND chunk ---")
     iend_valid = read_IEND_chunk(image_bytes, chunks[-1]["start_index"])
     print_IEND_info(iend_valid)
-    
+
     print("\n--- 6. Fourier Transform Analysis ---")
     plot_fourier_transform(image_path, "./fourier_analysis.png")
-
-    # Test for the successful Fourier Transform
-    #generate_stripes()
-    #plot_fourier_transform('./stripes_vertical.png')
-    #plot_fourier_transform('./stripes_horizontal.png')
 
     print("\n--- 7. Anonymization ---")
     anonymized_bytes, removed_chunks = anonymize_png(image_bytes, chunks)
     print_anonymization_report(removed_chunks)
     output_path = save_anonymized_png(anonymized_bytes, image_path)
     print(f"  Saved anonymized file: {output_path}")
-
 
 if __name__ == "__main__":
     main()

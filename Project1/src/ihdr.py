@@ -19,25 +19,23 @@ IHDR_CHUNK_BYTES_MAP: dict[str, int] = {
     "Interlace_Method": 1
 }
 
-
 def read_IHDR_chunk(image_bytes: bytes) -> dict[str, bytes]:
     ihdr_info: dict[str, bytes] = {}
     image_bytes = image_bytes[8:]
 
     if image_bytes[:4] != IHDR_LENGTH:
         raise ValueError("The first chunk is not IHDR or has an incorrect length.")
-    
+
     if image_bytes[4:8] != IHDR_NAME:
         raise ValueError("The first chunk is not IHDR.")
-    
+
     ihdr_data = image_bytes[8:21]
-    
+
     for key, value in IHDR_CHUNK_BYTES_MAP.items():
         ihdr_info[key] = ihdr_data[:value]
         ihdr_data = ihdr_data[value:]
 
     return ihdr_info
-
 
 COLOR_TYPES = {0: "grayscale", 2: "RGB", 3: "palette",
                4: "grayscale+alpha", 6: "RGBA"}

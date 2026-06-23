@@ -2,10 +2,7 @@ from src.chunks import ChunkInfo
 
 PNG_SIGNATURE = b'\x89PNG\r\n\x1a\n'
 
-# tRNS is ancillary by spec but kept because it defines transparency —
-# removing it would visibly alter images that rely on it.
 CRITICAL_CHUNKS = {"IHDR", "PLTE", "IDAT", "IEND", "tRNS"}
-
 
 def anonymize_png(image_bytes: bytes, chunks: list[ChunkInfo]) -> tuple[bytes, list[ChunkInfo]]:
     kept: list[ChunkInfo] = []
@@ -20,7 +17,6 @@ def anonymize_png(image_bytes: bytes, chunks: list[ChunkInfo]) -> tuple[bytes, l
 
     return result, removed
 
-
 def print_anonymization_report(removed: list[ChunkInfo]) -> None:
     print("Anonymization Report:")
     print("-" * 44)
@@ -32,7 +28,6 @@ def print_anonymization_report(removed: list[ChunkInfo]) -> None:
         for chunk in removed:
             print(f"  {chunk['type']:<22} {chunk['length']}")
     print("-" * 44)
-
 
 def save_anonymized_png(data: bytes, original_path: str) -> str:
     output_path = original_path.replace('.png', '_anonymized.png')

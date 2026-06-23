@@ -7,10 +7,10 @@ def read_IEND_chunk(image_bytes: bytes, start_index: int) -> bool:
 
     if chunk_length != IEND_LENGTH:
         raise ValueError("IEND chunk length is not 0.")
-    
+
     if chunk_name != IEND_NAME:
         raise ValueError("The chunk is not IEND.")
-    
+
     return True
 
 def print_IEND_info(is_valid: bool) -> None:
